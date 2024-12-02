@@ -5,6 +5,14 @@ import useTaskStore from '../store/TaskStore';
 
 export default function MainPage() {
     const tasks = useTaskStore((state) => state.tasks);
+    const fetchTasks = useTaskStore((state) => state.fetchTasks);
+
+    useEffect(() => {
+        fetchTasks();
+    }, [fetchTasks])
+    useEffect(() => {
+        tasks
+    }, [tasks])
 
     return (
         <div className="w-full">
@@ -24,8 +32,8 @@ export default function MainPage() {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 p-4">
                 {tasks.map((task) => (
                     <Task
-                        key={task.id}
-                        id={task.id}
+                        key={task._id}
+                        id={task._id}
                         status={task.status}
                         title={task.title}
                         description={task.description}
